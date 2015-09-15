@@ -3,9 +3,16 @@ import json
 from sys import exit
 from operator import itemgetter
 
-#Ask user for pub ID. Slice to get the Pub ID
+#Ask user for pub ID
 inputURL = input("Please paste the Hubski URL here: ")
-pubID = inputURL[26:]
+
+#Check if it's a full URL. If so, slice it to only have the pub ID left.
+if inputURL.startswith("https://hubski.com/pub?id="):
+    pubID = inputURL[26:]
+else:
+    print('Incorrect URL. Needs to be in the format "https://hubski.com/pub?id=[number]"')
+    input("Press Enter to exit...")
+    raise SystemExit
 
 #Check if that ID exists in the publications list. If it doesn't, stop the script. 
 pubIDlistURL = requests.get("http://api.hubski.com/publications")
@@ -13,7 +20,8 @@ pubIDlist = pubIDlistURL.text
 if pubID in pubIDlist:
     pass
 else:
-    print('Pub ID does not exist or is not accessible')
+    print('Post/comment does not exist or is not accessible')
+    input("Press Enter to exit...")
     raise SystemExit
 
 #Concenate to create new URL
@@ -30,11 +38,15 @@ sortedVotes = sorted(votes, key=itemgetter('num'), reverse=False)
 
 #Print the names and add a number in front as a count
 count = 0
-print ('List of votes, sorted from first voter to last:')
+print ('Pub ID: ' + pubID + '\nTitle: ' + str(data["title"]) + \
+'\nList of votes, sorted from first voter to last:')
+
 for user in sortedVotes:
     count += 1
     print(str(count) + ': ' + user['user'])
 
+input("Press Enter to exit...")
+
 #__________________________________________________
-#Legacy code
+#Legacy code: Pretty Json printer
 #print(json.dumps(data, indent=4, sort_keys=True))
