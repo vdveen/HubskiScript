@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{aa30aea4-ffc4-4cb6-a7fe-b3125b76a8fa}</ProjectGuid>
     <ProjectHome />
-    <StartupFile />
+    <StartupFile>Hubski\Hubski.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
