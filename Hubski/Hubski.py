@@ -34,7 +34,7 @@ data = http.json()
 
 #Sort votes from first to last. 
 votes = data['votes']
-sortedVotes = sorted(votes, key=itemgetter('num'), reverse=False)
+sortedVotes = sorted(votes, key=itemgetter('id'), reverse=False)
 
 #Print the names and add a number in front as a count
 count = 0
@@ -43,7 +43,11 @@ print ('Pub ID: ' + pubID + '\nTitle: ' + str(data["title"]) + \
 
 for user in sortedVotes:
     count += 1
-    print(str(count) + ': ' + user['user'])
+    if user['up'] == True:
+        vote = 'up' 
+    else: 
+        vote = 'down'
+    print(str(count) + ': ' + user['user'] + ' voted ' + vote)
 
 input("Press Enter to exit...")
 
